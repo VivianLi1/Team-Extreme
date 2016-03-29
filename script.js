@@ -14,16 +14,23 @@ for (var i = 0; i < data.length; i++){
 }
 */
 var svg = d3.select("body").append("svg")
-    .attr("width", 500)
-    .attr("height", 500);
+    .attr("width", 1200)
+    .attr("height", 1000);
+
+var el_index = 0;
+var row = 1;
 
 svg.selectAll("circle")
     .data(data)
     .enter()
     .append("circle")
     .attr("stroke", "black")
-    .attr("cx", 100)
-    .attr("cy", 100)
+    .attr("cx", function(d){
+	    el_index++;
+	    if ( (d[1]*el_index)/1200 == row)
+		row++;  
+	    return (d[1]*el_index)%1200 } )
+    .attr("cy", function(d){ return row*100 })
     .attr("fill", function(d){
 	if (d[2] == 'John Kasich'){
 	    return "red"
