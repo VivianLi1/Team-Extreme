@@ -117,8 +117,8 @@ var circle = grouping.append("circle")
 	
     })
     .attr("r", function(d){return d[1]})
-    .on("mouseover", function(){console.log(d[0])})
-    .on("mouseout", function(){console.log(d[1])})
+    .on("mouseover", function(d){console.log(d[0])})
+    .on("mouseout", function(d){console.log(d[1])})
 /*
     .on("mouseover", function(d){tip.show})
     .on("mouseout", function(d){tip.hide})
