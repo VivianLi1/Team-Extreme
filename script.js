@@ -106,24 +106,27 @@ var grouping = element.append("g")
 
 var circle = grouping.append("circle")
     .attr("fill", function(d){
-	if (d[2] == 'John Kasich')
-	    return "red";
-	if (d[2] == 'Marco Rubio')
-	    return "green";
-	if (d[2] == 'Ted Cruz')
-	    return "yellow";
-	if (d[2] == 'Donald Trump')
-	    return "orange";
+				if (d[2] == 'John Kasich')
+						return "#FFAAAA";
+				if (d[2] == 'Marco Rubio')
+						return "#D46A6A";
+				if (d[2] == 'Ted Cruz')
+						return "#550000";
+				if (d[2] == 'Donald Trump')
+						return "#F73608";
 	
     })
     .attr("r", function(d){return d[1]})
     .on("mouseover", function(){console.log(d[0])})
     .on("mouseout", function(){console.log(d[1])})
-/*
+
     .on("mouseover", function(d){tip.show})
-    .on("mouseout", function(d){tip.hide})
-*/
+    .on("mouseout", function(d){tip.hide});
+
 grouping.append("text")
     .attr("dx", function(d){return -14})
     .attr("dy", function(d){return 5})
     .text(function(d){return d[1]})
+
+grouping.append("title")
+		.text(function(d) { return '"' + d[0] + '" - ' + d[2] + ': ' + d[1].toString(); });
