@@ -90,6 +90,12 @@ var yCor = function yCor(d){
     return row*160 + 100
 }
 
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .html(function(d) {
+    return d;
+  })
+
 var element = svg.selectAll("g")
     .data(data)
     .enter()
@@ -111,9 +117,12 @@ var circle = grouping.append("circle")
 	
     })
     .attr("r", function(d){return d[1]})
-    .on("mouseover", function(){console.log("asd")})
-    .on("mouseout", function(){console.log("zxc")})
-
+    .on("mouseover", function(){console.log(d[0])})
+    .on("mouseout", function(){console.log(d[1])})
+/*
+    .on("mouseover", function(d){tip.show})
+    .on("mouseout", function(d){tip.hide})
+*/
 grouping.append("text")
     .attr("dx", function(d){return -14})
     .attr("dy", function(d){return 5})
