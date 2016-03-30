@@ -10,7 +10,7 @@ var x_for_y = 0;
 var r_for_y = 0;
 var row = 0;
 /*
-	svg.selectAll("circle")
+        svg.selectAll("circle")
 	.data(data)
 	.enter()
 	.append("circle")
@@ -62,32 +62,59 @@ var row = 0;
 	.text(function(d){return d[0]});
 */
 
+
+var xCor = function xCor(d){
+    if ( (((pre_x + pre_r) + 25 + Number(d[1]) ) / 1100) >= 1){
+	var ret_x = (( (pre_x + pre_r) + 25 +  Number(d[1]) ) % 1100 ) + 40;
+    }
+    else {
+	var ret_x = ( (pre_x + pre_r) + 25  + Number(d[1]) ) % 1100;
+    }
+    pre_x = ret_x;
+    pre_r = Number(d[1]);
+    return ret_x
+}
+
+var yCor = function yCor(d){
+    if  ((((x_for_y + r_for_y) + 25 + Number(d[1]) ) / 1100 ) >= 1){
+	row++;
+    }
+    if ( (((x_for_y + r_for_y) + 25 + Number(d[1]) ) / 1100) >= 1){
+	var x_coor = (( (x_for_y + r_for_y) + 25 +  Number(d[1]) ) % 1100 ) + 40;
+    }
+    else {
+	var x_coor = ( (x_for_y + r_for_y) + 25  + Number(d[1]) ) % 1100;
+    }
+    x_for_y = x_coor;
+    r_for_y = Number(d[1]);
+    return row*160 + 100
+}
+
 var element = svg.selectAll("g")
     .data(data)
     .enter()
 
-var grouping = element
-    .append("g")
-		.attr("transform", function(d){
-				if ( ( (pre_x + pre_r) + 20 + Number(d[1]) ) / 1200 > row);
-				var ret_x = ( (pre_x + pre_r) + 20 + Number(d[1]) )%1200;
-				pre_x = ret_x;
-				return "translate(" + ret_x + ", " + Math.random()*800 + 75 + ")"})
+var grouping = element.append("g")
+    .attr("transform", function(d){
+	return "translate(" + xCor(d)+ ", " + yCor(d)+ ")"})
 
 var circle = grouping.append("circle")
     .attr("fill", function(d){
-				if (d[2] == 'John Kasich')
-						return "red";
-				if (d[2] == 'Marco Rubio')
-						return "green";
-				if (d[2] == 'Ted Cruz')
-						return "yellow";
-				if (d[2] == 'Donald Trump')
-						return "orange";
-	      
+	if (d[2] == 'John Kasich')
+	    return "red";
+	if (d[2] == 'Marco Rubio')
+	    return "green";
+	if (d[2] == 'Ted Cruz')
+	    return "yellow";
+	if (d[2] == 'Donald Trump')
+	    return "orange";
+	
     })
     .attr("r", function(d){return d[1]})
+    .on("mouseover", function(){console.log("asd")})
+    .on("mouseout", function(){console.log("zxc")})
 
 grouping.append("text")
-    .text(function(d){return d[0]})
-    .style("font-size","5px")
+    .attr("dx", function(d){return -14})
+    .attr("dy", function(d){return 5})
+    .text(function(d){return d[1]})
