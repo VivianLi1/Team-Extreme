@@ -111,22 +111,25 @@ var circle = grouping.append("circle")
 				if (d[2] == 'Marco Rubio')
 						return "#D46A6A";
 				if (d[2] == 'Ted Cruz')
-						return "#550000";
+						return "#D51D1D";
 				if (d[2] == 'Donald Trump')
-						return "#F73608";
+						return "#FF5E34";
 	
     })
     .attr("r", function(d){return d[1]})
-    .on("mouseover", function(){console.log(d[0])})
-    .on("mouseout", function(){console.log(d[1])})
+		.on("mouseover", function(){console.log(d[0])})
+		.on("mouseout", function(){console.log(d[1])})
 
-    .on("mouseover", function(d){tip.show})
-    .on("mouseout", function(d){tip.hide});
+    .on("mouseover", function(d){console.log(d[0])})
+    .on("mouseout", function(d){console.log(d[1])})
 
-grouping.append("text")
-    .attr("dx", function(d){return -14})
-    .attr("dy", function(d){return 5})
-    .text(function(d){return d[1]})
+		.on("mouseover", function(d){tip.show})
+		.on("mouseout", function(d){tip.hide});
 
-grouping.append("title")
-		.text(function(d) { return '"' + d[0] + '" - ' + d[2] + ': ' + d[1].toString(); });
+	grouping.append("text")
+  .attr("dx", function(d){return -14})
+  .attr("dy", function(d){return 5})
+  .text(function(d){return d[1]})
+
+	grouping.append("title")
+	.text(function(d) { return '"' + d[0] + '" - ' + d[2] + ': ' + d[1].toString(); });
