@@ -14,13 +14,15 @@ for (var i = 0; i < data.length; i++){
 }
 */
 var svg = d3.select("body").append("svg")
-    .attr("width", 1200)
-    .attr("height", 1000);
+    .attr("width", 1250)
+    .attr("height", 1500);
 
-var pre_x = -10;
+var pre_x = 0;
 var pre_r = 0;
-var row = 0;
 
+var x_for_y = 0;
+var r_for_y = 0;
+var row = 0;
 
 svg.selectAll("circle")
     .data(data)
@@ -28,23 +30,43 @@ svg.selectAll("circle")
     .append("circle")
     .attr("stroke", "black")
     .attr("cx", function(d){
-	    if ( ( (pre_x + pre_r) + 20 + Number(d[1]) ) / 1200 ) > row;
-	    var ret_x = ( (pre_x + pre_r) + 20 + Number(d[1]) )%1200;
-	    pre_x = ret_x;
-	    return ret_x})
-    .attr("cy", function(d){ return Math.random()*800 + 75 })
-    .attr("fill", function(d){
-	if (d[2] == 'John Kasich')
-	    return "red";
-	if (d[2] == 'Marco Rubio')
-	    return "green";
-	if (d[2] == 'Ted Cruz')
-	    return "yellow";
-	if (d[2] == 'Donald Trump')
-	    return "orange";
+				if ( (((pre_x + pre_r) + 25 + Number(d[1]) ) / 1100) >= 1){
+						var ret_x = (( (pre_x + pre_r) + 25 +  Number(d[1]) ) % 1100 ) + 40;
+				}
+				else {
+						var ret_x = ( (pre_x + pre_r) + 25  + Number(d[1]) ) % 1100;
+				}
+				pre_x = ret_x;
+				pre_r = Number(d[1]);
+				return ret_x})
+		.attr("cy", function(d){
+				if  ((((x_for_y + r_for_y) + 25 + Number(d[1]) ) / 1100 ) >= 1){
+						console.log("new");
+						row++;
+				}
+				//var x_coor = ( (x_for_y + r_for_y) + 25 + Number(d[1]) )%1100;
+				if ( (((x_for_y + r_for_y) + 25 + Number(d[1]) ) / 1100) >= 1){
+						var x_coor = (( (x_for_y + r_for_y) + 25 +  Number(d[1]) ) % 1100 ) + 40;
+				}
+				else {
+						var x_coor = ( (x_for_y + r_for_y) + 25  + Number(d[1]) ) % 1100;
+				}
+
+				x_for_y = x_coor;
+				r_for_y = Number(d[1]);
+				return row*160 + 100})
+		.attr("fill", function(d){
+				if (d[2] == 'John Kasich')
+						return "red";
+				if (d[2] == 'Marco Rubio')
+						return "green";
+				if (d[2] == 'Ted Cruz')
+						return "yellow";
+				if (d[2] == 'Donald Trump')
+						return "orange";
 	      
-    })
-    .attr("r", function(d){return d[1]})
+		})
+		.attr("r", function(d){return d[1]})
     .append("text")
     .attr("dx", function(d){return 10})
     .text(function(d){return d[0]});
